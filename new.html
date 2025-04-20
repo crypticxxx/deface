@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>icebox.com — Seized</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      color: #00ff00;
+      font-family: 'Share Tech Mono', monospace;
+      overflow: hidden;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    #fake-url {
+      background: #1a1a1a;
+      color: #0f0;
+      padding: 8px 15px;
+      font-size: 14px;
+      font-family: monospace;
+      border-bottom: 1px solid #0f0;
+      z-index: 9999;
+      position: fixed;
+      top: 0;
+      width: 100%;
+    }
+
+    .center {
+      position: absolute;
+      top: 55%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      animation: glitch 1s infinite;
+    }
+
+    red {
+      color: red;
+    }
+
+    #terminal {
+      margin-top: 30px;
+      font-size: 14px;
+      text-align: left;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: rgba(0, 255, 0, 0.05);
+      border: 1px solid #0f0;
+      padding: 10px;
+      height: 200px;
+      overflow: hidden;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    @keyframes glitch {
+      0% { text-shadow: 0 0 2px lime, 2px 2px red; }
+      50% { text-shadow: -2px 0px cyan, 1px 1px magenta; }
+      100% { text-shadow: 2px -2px blue, -2px 2px lime; }
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      font-size: 12px;
+      color: gray;
+    }
+  </style>
+</head>
+<body onload="startTerminal()">
+
+  <div id="fake-url">🔒 https://icebox.com/admin/login</div>
+
+  <!-- Matrix code background -->
+  <canvas id="matrix"></canvas>
+
+  <div class="center">
+    <h1>System Breach by <red>Cryptic</red></h1>
+    <div id="terminal"></div>
+  </div>
+
+  <audio src="https://kosred.com/a/gavwen.mp3" autoplay loop></audio>
+
+  <div class="footer">icebox.com © 2025 — breach logged</div>
+
+  <!-- Terminal simulation -->
+  <script>
+    const logLines = [
+      "[ADMIN] Connecting to server...",
+      "[ADMIN] Exploit deployed...",
+      "[ADMIN] Bypassing firewall...",
+      "[ADMIN] Access granted: root",
+      "[ADMIN] Dumping database...",
+      "[ADMIN] Deleting logs...",
+      "[ic] Uploading signature...",
+      "[SYSTEM] Site breached by Cryptic 💀",
+    ];
+
+    let lineIndex = 0;
+
+    function startTerminal() {
+      const terminal = document.getElementById("terminal");
+      const interval = setInterval(() => {
+        if (lineIndex < logLines.length) {
+          terminal.innerHTML += logLines[lineIndex] + "\n";
+          lineIndex++;
+        } else {
+          clearInterval(interval);
+        }
+      }, 900);
+    }
+
+    // Matrix background
+    const canvas = document.getElementById("matrix");
+    const ctx = canvas.getContext("2d");
+
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+
+    const letters = "アァイィウヴエカキクケコサシスセソタチツテトナニネノハヒフヘホマミムメモヤユヨラリルレロワンABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
+    const matrix = letters.split("");
+
+    const fontSize = 12;
+    const columns = canvas.width / fontSize;
+
+    const drops = [];
+    for (let x = 0; x < columns; x++) drops[x] = 1;
+
+    function draw() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#0f0";
+      ctx.font = fontSize + "px monospace";
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = matrix[Math.floor(Math.random() * matrix.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+
+    setInterval(draw, 50);
+  </script>
+
+</body>
+</html>
